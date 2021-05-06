@@ -26,6 +26,7 @@ const Home = ({ navigation }) => {
             });
         })
         .catch(error => console.log(error))
+
     return (
         <View style={styles.outerFlex}>
             <FlatList data={contests} renderItem={({ item }) => (

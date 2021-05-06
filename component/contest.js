@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/dist/FontAwesome5'
+import { View, Text, StyleSheet, TouchableOpacity, Share, ToastAndroid } from 'react-native';
+import Icon from 'react-native-vector-icons/dist/FontAwesome'
 import * as AddCalendarEvent from 'react-native-add-calendar-event'
 import moment from 'moment';
 
@@ -52,7 +52,6 @@ const Contest = ({ item }) => {
         moment().utc(false)
         const startDate = moment(item.startTimeSeconds * 1000).utc(false).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
         const endDate = moment(item.startTimeSeconds * 1000 + item.durationSeconds * 1000).utc(false).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
-        console.log(startDate, offset);
         const eventConfig = {
             title: name,
             startDate: startDate,
@@ -60,16 +59,24 @@ const Contest = ({ item }) => {
         }
         AddCalendarEvent.presentEventCreatingDialog(eventConfig)
             .then((eventInfo) => {
-                // handle success - receives an object with `calendarItemIdentifier` and `eventIdentifier` keys, both of type string.
-                // These are two different identifiers on iOS.
-                // On Android, where they are both equal and represent the event id, also strings.
-                // when { action: 'CANCELED' } is returned, the dialog was dismissed
-                console.warn(JSON.stringify(eventInfo));
             })
             .catch((error) => {
-                // handle error such as when user rejected permissions
-                console.warn(error);
+                console.log(error)
             });
+    }
+
+    const shareContest = () => {
+        const URL = `https://codeforces.com/contests/${item.id}`
+        const options = {
+            message: `Check this Codeforces contest\n\n${URL}`
+        }
+        Share.share(options)
+            .then(response => {
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     return (
@@ -78,14 +85,19 @@ const Contest = ({ item }) => {
             <Text style={styles.otherText}>Type: {item.type}</Text>
             <Text style={styles.otherText}>Duration: {getDuration(item.durationSeconds)}</Text>
             <Text style={styles.otherText}>Start Time: {getStartTime(item.startTimeSeconds)}</Text>
-            {item.startTimeSeconds * 1000 > new Date().getTime()
-                ?
-                <TouchableOpacity onPress={addToCalendar}>
-                    <Icon name='calendar' size={25} color='#b9001e' style={styles.calendar} />
+            <View style={styles.innerBox}>
+                {item.startTimeSeconds * 1000 > new Date().getTime()
+                    ?
+                    <TouchableOpacity onPress={addToCalendar}>
+                        <Icon name='calendar' size={25} color='#cc0000' style={styles.calendar} />
+                    </TouchableOpacity>
+                    :
+                    null
+                }
+                <TouchableOpacity onPress={shareContest}>
+                    <Icon name='share' size={25} color='#cc0000' style={styles.calendar} />
                 </TouchableOpacity>
-                :
-                null
-            }
+            </View>
         </View>
     );
 }
@@ -105,9 +117,12 @@ const styles = StyleSheet.create({
     otherText: {
         color: '#757575'
     },
-    calendar: {
+    innerBox: {
         alignSelf: 'flex-end',
-        paddingEnd: 20,
+        flexDirection: 'row'
+    },
+    calendar: {
+        paddingEnd: 25,
         paddingTop: 5
     }
 })

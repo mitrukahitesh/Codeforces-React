@@ -5567,6 +5567,11 @@
   "resolved" "https://registry.npmjs.org/react-native-screens/-/react-native-screens-3.1.1.tgz"
   "version" "3.1.1"
 
+"react-native-social-share@^1.6.5":
+  "integrity" "sha512-S61aHlAj9AelpHR4ZJ3w+42UFI5DkqP+hZLfx2/fY2By7QTn+nD0OHeEBrRKWYuabA+XAz8PSaeI9r2LZN8JWw=="
+  "resolved" "https://registry.npmjs.org/react-native-social-share/-/react-native-social-share-1.6.5.tgz"
+  "version" "1.6.5"
+
 "react-native-vector-icons@^8.1.0":
   "integrity" "sha512-sHIdBB6Y0dHaot2fMXgy5J/hhCn5YuyN7SKDNFgPzL8KA1oF2/v7mgYMavnK7LIIs2dJoGnDANKf61dsU+TZlg=="
   "resolved" "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-8.1.0.tgz"
