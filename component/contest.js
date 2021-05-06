@@ -48,8 +48,7 @@ const Contest = ({ item }) => {
 
     const addToCalendar = () => {
         const name = item.name
-        moment.locale();
-        const startDate = moment(item.startTimeSeconds * 1000).locale().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+        const startDate = moment(item.startTimeSeconds * 1000).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
         const endDate = moment(item.startTimeSeconds * 1000 + item.durationSeconds * 1000).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
         const eventConfig = {
             title: name,
