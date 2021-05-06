@@ -15,6 +15,7 @@
     "@react-navigation/stack": "^5.14.4",
     "fetch": "^1.1.0",
     "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
     "react": "17.0.1",
     "react-native": "0.64.1",
     "react-native-add-calendar-event": "^4.0.0",

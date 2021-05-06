@@ -48,8 +48,11 @@ const Contest = ({ item }) => {
 
     const addToCalendar = () => {
         const name = item.name
-        const startDate = moment(item.startTimeSeconds * 1000).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
-        const endDate = moment(item.startTimeSeconds * 1000 + item.durationSeconds * 1000).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+        const offset = new Date().getTimezoneOffset()
+        moment().utc(false)
+        const startDate = moment(item.startTimeSeconds * 1000).utc(false).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+        const endDate = moment(item.startTimeSeconds * 1000 + item.durationSeconds * 1000).utc(false).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+        console.log(startDate, offset);
         const eventConfig = {
             title: name,
             startDate: startDate,
