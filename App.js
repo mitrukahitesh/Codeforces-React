@@ -26,7 +26,6 @@ const defaultOptions = {
     height: 70
   },
   headerTintColor: '#ffffff',
-  gestureEnabled: true,
   gestureDirection: 'horizontal',
   cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
   transitionSpec: {
