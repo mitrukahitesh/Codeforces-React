@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.barefootcoders.android.react.KDSocialShare.KDSocialShare;
 import com.vonovak.AddCalendarEventPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
