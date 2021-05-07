@@ -30,6 +30,7 @@
 		4F05E49D22ED4885B71B1B00 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 020261446E9E4AB9A495276A /* Zocial.ttf */; };
 		AFCFC72AD0AD4DFEA6534D20 /* ReactNativeSocialShare.app in Resources */ = {isa = PBXBuildFile; fileRef = CB419F0B632041EAA2D71E8F /* ReactNativeSocialShare.app */; };
 		0130BAF7AFF44FD6AF4DCADD /* ReactNativeSocialShareTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = ACEC1E12A865422BB9049B48 /* ReactNativeSocialShareTests.xctest */; };
+		46394677A66C458DBCB05442 /* libDBCustomTabs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6DF24C6DAA43C5B293AC44 /* libDBCustomTabs.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		D2E9685F363242E6B8EAA0F8 /* ReactNativeSocialShare.xcodeproj */ = {isa = PBXFileReference; name = "ReactNativeSocialShare.xcodeproj"; path = "../node_modules/react-native-social-share/ReactNativeSocialShare.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		CB419F0B632041EAA2D71E8F /* ReactNativeSocialShare.app */ = {isa = PBXFileReference; name = "ReactNativeSocialShare.app"; path = "ReactNativeSocialShare.app"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.application; explicitFileType = undefined; includeInIndex = 0; };
 		ACEC1E12A865422BB9049B48 /* ReactNativeSocialShareTests.xctest */ = {isa = PBXFileReference; name = "ReactNativeSocialShareTests.xctest"; path = "ReactNativeSocialShareTests.xctest"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.cfbundle; explicitFileType = undefined; includeInIndex = 0; };
+		1E14D20E67C94BF0ACE10363 /* ReactNativeCustomTabs.xcodeproj */ = {isa = PBXFileReference; name = "ReactNativeCustomTabs.xcodeproj"; path = "../node_modules/react-native-custom-tabs/ios/ReactNativeCustomTabs.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		8C6DF24C6DAA43C5B293AC44 /* libDBCustomTabs.a */ = {isa = PBXFileReference; name = "libDBCustomTabs.a"; path = "libDBCustomTabs.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +92,7 @@
 			files = (
 				AFCFC72AD0AD4DFEA6534D20 /* ReactNativeSocialShare.app in Resources */,
 				0130BAF7AFF44FD6AF4DCADD /* ReactNativeSocialShareTests.xctest in Resources */,
+				46394677A66C458DBCB05442 /* libDBCustomTabs.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				D2E9685F363242E6B8EAA0F8 /* ReactNativeSocialShare.xcodeproj */,
+				1E14D20E67C94BF0ACE10363 /* ReactNativeCustomTabs.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -392,10 +397,12 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-social-share/iOS",
+					"$(SRCROOT)/../node_modules/react-native-custom-tabs/ios/ReactNativeCustomTabs",
 				);
 			};
 			name = Debug;
@@ -424,10 +431,12 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-social-share/iOS",
+					"$(SRCROOT)/../node_modules/react-native-custom-tabs/ios/ReactNativeCustomTabs",
 				);
 			};
 			name = Release;
@@ -457,6 +466,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-social-share/iOS",
+					"$(SRCROOT)/../node_modules/react-native-custom-tabs/ios/ReactNativeCustomTabs",
 				);
 			};
 			name = Debug;
@@ -484,6 +494,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-social-share/iOS",
+					"$(SRCROOT)/../node_modules/react-native-custom-tabs/ios/ReactNativeCustomTabs",
 				);
 			};
 			name = Release;

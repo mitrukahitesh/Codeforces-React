@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import Navigator from './navigator/navigator';
 import { FlatList, View, StyleSheet, TouchableOpacity, ToastAndroid } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome5'
-import ContestComponent from '../component/contest'
+import ProblemComponent from '../component/problem'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Problem = ({ navigation }) => {
@@ -10,6 +10,7 @@ const Problem = ({ navigation }) => {
     const [problems, setProblems] = useState(null);
     const [latestData, setLatestData] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
+    const [reRender, setReRender] = useState(false);
 
     const loadLocalData = () => {
         AsyncStorage.getItem('PROBLEMS')
@@ -17,17 +18,14 @@ const Problem = ({ navigation }) => {
                 if (response !== null) {
                     setProblems(prevProblems => {
                         const json = JSON.parse(response)
-                        return json.result;
+                        return json.result.problems;
                     })
+                } else {
+                    fetchLatestData()
                 }
-                fetchLatestData()
             })
             .catch(err => {
-                fetchLatestData()
             })
-    }
-    if (problems === null) {
-        loadLocalData();
     }
 
     const fetchLatestData = () => {
@@ -40,6 +38,7 @@ const Problem = ({ navigation }) => {
                     return response.json();
                 })
                 .then(response => {
+                    delete response.result.problemStatistics
                     if (newDataAvailable(response)) {
                         AsyncStorage.setItem('PROBLEMS', JSON.stringify(response))
                             .then(() => {
@@ -47,7 +46,7 @@ const Problem = ({ navigation }) => {
                                     ToastAndroid.show('New problems Available!', ToastAndroid.LONG);
                                 }
                                 setProblems(prevProblems => {
-                                    return response.result;
+                                    return response.result.problems;
                                 });
                             })
                     }
@@ -61,11 +60,17 @@ const Problem = ({ navigation }) => {
         }
     }
 
+    if (problems === null) {
+        loadLocalData();
+    } else {
+        fetchLatestData();
+    }
+
     const newDataAvailable = (response) => {
         if (problems === null) {
             return true
         }
-        if (response.result[0].id !== problems[0].id) {
+        if (response.result.problems.length !== problems.length) {
             return true
         }
         return false
@@ -80,6 +85,7 @@ const Problem = ({ navigation }) => {
                 return response.json();
             })
             .then(response => {
+                delete response.result.problemStatistics
                 if (newDataAvailable(response)) {
                     AsyncStorage.setItem('problems', JSON.stringify(response))
                         .then(() => {
@@ -87,7 +93,7 @@ const Problem = ({ navigation }) => {
                                 ToastAndroid.show('New problems Available!', ToastAndroid.LONG);
                             }
                             setProblems(prevProblems => {
-                                return response.result;
+                                return response.result.problems;
                             });
                         })
                 }
@@ -102,24 +108,39 @@ const Problem = ({ navigation }) => {
             })
     }
 
-    const goToUser = () => {
-        navigation.navigate('User');
+    const sort = () => {
+        var newData = problems
+        if (newData[0].rating > 800) {
+            newData.sort((a, b) => {
+                return a.rating - b.rating;
+            })
+        } else {
+            newData.sort((a, b) => {
+                return b.rating - a.rating;
+            })
+        }
+        setProblems(prevData => {
+            return newData
+        })
+        setReRender(prevData => {
+            return !prevData
+        })
     }
 
-    const goToProblems = () => {
-        navigation.navigate('Problem');
+    const filter = () => {
+
     }
 
     return (
         <View style={styles.outerFlex}>
-            <FlatList data={problems} renderItem={({ item }) => (
-                <ContestComponent item={item} />
-            )} refreshing={refreshing} onRefresh={refresh} />
+            <FlatList data={problems} extraData={reRender} renderItem={({ item }) => (
+                <ProblemComponent item={item} />
+            )} refreshing={refreshing} onRefresh={refresh} keyExtractor={item => item.contestId + item.index} />
             <View style={styles.innerFlex}>
-                <TouchableOpacity onPress={goToUser}>
+                <TouchableOpacity onPress={sort}>
                     <Icon name='sort' size={30} color='#fff' />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={goToProblems}>
+                <TouchableOpacity onPress={filter}>
                     <Icon name='filter' size={30} color='#fff' />
                 </TouchableOpacity>
             </View>

@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Share, ToastAndroid } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Share, Linking, ToastAndroid } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 import * as AddCalendarEvent from 'react-native-add-calendar-event'
 import moment from 'moment';
 
-const Contest = ({ item }) => {
+const ContestComponent = ({ item }) => {
     const months = [
         'Jan',
         'Feb',
@@ -79,9 +79,22 @@ const Contest = ({ item }) => {
             })
     }
 
+    const takeToContest = () => {
+        const URL = `https://codeforces.com/contests/${item.id}`
+        Linking.canOpenURL(URL)
+            .then(supported => {
+                Linking.openURL(URL)
+            })
+            .catch(err => {
+                ToastAndroid.show('Oops! Can\'t open linkr', ToastAndroid.LONG);
+            })
+    }
+
     return (
         <View style={styles.box}>
-            <Text style={styles.contestName}>{item.name}</Text>
+            <TouchableOpacity onPress={takeToContest}>
+                <Text style={styles.contestName}>{item.name}</Text>
+            </TouchableOpacity>
             <Text style={styles.otherText}>Type: {item.type}</Text>
             <Text style={styles.otherText}>Duration: {getDuration(item.durationSeconds)}</Text>
             <Text style={styles.otherText}>Start Time: {getStartTime(item.startTimeSeconds)}</Text>
@@ -127,4 +140,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Contest
+export default ContestComponent
