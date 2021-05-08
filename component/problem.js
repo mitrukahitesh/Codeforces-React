@@ -38,7 +38,7 @@ const ProblemComponent = ({ item }) => {
             </TouchableOpacity>
             <Text style={styles.otherText}>Contest ID: {item.contestId + '-' + item.index}</Text>
             <Text style={styles.otherText}>Rating: {item.rating}</Text>
-            <FlatList data={names} renderItem={({ item }) => (
+            <FlatList data={[...new Set(names)]} renderItem={({ item }) => (
                 <TagComponent item={item} />
             )} horizontal={true} keyExtractor={item => item} />
             <TouchableOpacity onPress={shareProblem}>

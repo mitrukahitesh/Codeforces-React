@@ -86,26 +86,38 @@ const Problem = ({ navigation }) => {
         return false
     }
 
+    const refreshUtility = (response) => {
+        if (problems !== null) {
+            ToastAndroid.show('New problems Available!', ToastAndroid.LONG);
+        }
+        setProblems(prevProblems => {
+            return response.result.problems;
+        });
+    }
+
     const refresh = () => {
+        var url = URL
+        if (selectCategory !== null || selectCategory !== 'all') {
+            url = `https://codeforces.com/api/problemset.problems?tags=${selectCategory}`
+        }
         setRefreshing(prevVal => {
             return true
         })
-        fetch(URL)
+        fetch(url)
             .then(response => {
                 return response.json();
             })
             .then(response => {
                 delete response.result.problemStatistics
                 if (newDataAvailable(response)) {
-                    AsyncStorage.setItem('problems', JSON.stringify(response))
-                        .then(() => {
-                            if (problems !== null) {
-                                ToastAndroid.show('New problems Available!', ToastAndroid.LONG);
-                            }
-                            setProblems(prevProblems => {
-                                return response.result.problems;
-                            });
-                        })
+                    if (selectCategory === null || selectCategory === 'all') {
+                        AsyncStorage.setItem('problems', JSON.stringify(response))
+                            .then(() => {
+                                refreshUtility(response)
+                            })
+                    } else {
+                        refreshUtility(response)
+                    }
                 }
             })
             .catch(error => {
@@ -122,10 +134,22 @@ const Problem = ({ navigation }) => {
         var newData = problems
         if (newData[0].rating > 800) {
             newData.sort((a, b) => {
+                if (a.rating === undefined) {
+                    a.rating = 0
+                }
+                if (b.rating === undefined) {
+                    b.rating = 0
+                }
                 return a.rating - b.rating;
             })
         } else {
             newData.sort((a, b) => {
+                if (a.rating === undefined) {
+                    a.rating = 0
+                }
+                if (b.rating === undefined) {
+                    b.rating = 0
+                }
                 return b.rating - a.rating;
             })
         }
@@ -139,6 +163,7 @@ const Problem = ({ navigation }) => {
 
     const filterContent = (category) => {
         revertDialog();
+        setSelectCategory(category);
         var url = `https://codeforces.com/api/problemset.problems?tags=${category}`
         if (category === 'all') {
             url = URL
