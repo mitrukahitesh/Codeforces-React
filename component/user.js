@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Image, Text, StyleSheet } from 'react-native'
+import FastImage from 'react-native-fast-image'
 
 const UserComponent = ({ item }) => {
     const months = [
@@ -40,7 +41,7 @@ const UserComponent = ({ item }) => {
     return (
         <View>
             {item.handle ? <Text style={styles.handle}>{item.handle}</Text> : null}
-            {item.titlePhoto ? <Image source={{ uri: item.titlePhoto, width: 120, height: 120 }} style={styles.profilePic} /> : null}
+            {item.titlePhoto ? <Image source={{ uri: item.titlePhoto }} style={styles.profilePic} /> : null}
             {item.lastOnlineTimeSeconds ? <Text style={styles.details}>Last online: {getTime(item.lastOnlineTimeSeconds)}</Text> : null}
             {item.firstName ? <Text style={styles.details}>First Name: {item.firstName}</Text> : null}
             {item.lastName ? <Text style={styles.details}>Last Name: {item.lastName}</Text> : null}
@@ -64,7 +65,9 @@ const styles = StyleSheet.create({
         fontSize: 28
     },
     profilePic: {
-        borderRadius: 4
+        borderRadius: 4,
+        width: 120,
+        height: 120
     },
     details: {
         marginTop: 5,
